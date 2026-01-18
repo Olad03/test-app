@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM quay.io/sclorg/php-82-c8s
 
 # Make Apache OpenShift-compatible
 RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf \
