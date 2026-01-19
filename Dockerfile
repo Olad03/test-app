@@ -4,9 +4,17 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends \
     gcc \
     make \
+    autoconf \
+    pkg-config \
+    re2c \
     libmariadb-dev \
  && docker-php-ext-install mysqli \
- && apt-get purge -y gcc make \
+ && apt-get purge -y \
+    gcc \
+    make \
+    autoconf \
+    pkg-config \
+    re2c \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/*
 
