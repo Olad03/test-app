@@ -42,7 +42,7 @@ if (isset($_POST['username'])) {
     </head>
     <body class="container">
     <div class="form col-md-10">
-        <h1 style="padding: 5px" class="text-center">Create An Account</h1>
+        <h1 style="padding: 5px" class="text-center">BluDive Create An Account Template</h1>
         <form name="registration" action="" method="post">
             <div class="form-group">
                 <label for="username">Your username</label>
