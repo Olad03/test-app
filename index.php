@@ -127,8 +127,8 @@ input {
 
 <div class="form-shell">
 
-    <h1>Event Evaluation</h1>
-    <p class="subtitle">Thanks for a great event! Tell us what you feel.</p>
+    <h1>BluDive Registration Application</h1>
+    <p class="subtitle">This is a Sample Registration App Version 1.1</p>
 
     <!-- FORM FIELD NAMES UNCHANGED -->
     <form method="POST">
@@ -144,10 +144,10 @@ input {
 
         <div class="section">Please rate the following</div>
         <p style="opacity:.7;font-size:14px">
-            (Rating fields can be added visually later without affecting PHP)
+            (Rate this test App)
         </p>
 
-        <button type="submit" class="submit">Submit Evaluation</button>
+        <button type="submit" class="submit">Submit Registration</button>
 
     </form>
 
