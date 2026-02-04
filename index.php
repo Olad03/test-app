@@ -2,69 +2,159 @@
 <?php
 require('db.php'); // Include the database connection file
 
-// If form submitted, insert values into the database.
 if (isset($_POST['username'])) {
-    // removes backslashes
-    $username = stripslashes($_REQUEST['username']);
-    // escapes special characters in a string
-    $username = mysqli_real_escape_string($con, $username);
-    $email = stripslashes($_REQUEST['email']);
-    $email = mysqli_real_escape_string($con, $email);
-    $password = stripslashes($_REQUEST['password']);
-    $password = mysqli_real_escape_string($con, $password);
-    $trn_date = date("Y-m-d H:i:s");
 
-    // Hash the password securely before storing
+    $username = mysqli_real_escape_string($con, stripslashes($_POST['username']));
+    $email    = mysqli_real_escape_string($con, stripslashes($_POST['email']));
+    $password = mysqli_real_escape_string($con, stripslashes($_POST['password']));
+
+    $trn_date = date("Y-m-d H:i:s");
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = "INSERT into `users` (username, email, password, trn_date)
+    $query = "INSERT INTO users (username, email, password, trn_date)
               VALUES ('$username', '$email', '$hashed_password', '$trn_date')";
+
     $result = mysqli_query($con, $query);
+
     if ($result) {
-        echo "<div class='form'>
-              <h3>You are registered successfully.</h3>
-              <p>Click here to <a href='login.php'>Login</a></p>
+        echo "<div style='color:#fff;text-align:center;font-family:Inter'>
+                <h2>You are registered successfully.</h2>
+                <p><a href='login.php' style='color:#9fa8ff'>Login</a></p>
               </div>";
     } else {
-        echo "<div class='form'>
-              <h3>Error registering user.</h3>
-              <p>Click here to <a href='register.php'>try again</a></p>
+        echo "<div style='color:#fff;text-align:center;font-family:Inter'>
+                <h2>Error registering user.</h2>
+                <p><a href='register.php' style='color:#ff9f9f'>Try again</a></p>
               </div>";
     }
+
 } else {
-    ?>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Registration</title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body class="container">
-    <div class="form col-md-10">
-        <h1 style="padding: 5px" class="text-center">BluDive Create An Account Template</h1>
-        <form name="registration" action="" method="post">
-            <div class="form-group">
-                <label for="username">Your username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required />
-            </div>
+?>
 
-           <div class="form-group">
-               <label for="email">Your Email Address</label>
-               <input type="email" id="email" class="form-control" name="email" placeholder="Email" required />
-           </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Event Evaluation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" name="password" placeholder="Password" required />
-            </div>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-            <div class="form-group">
-                <input type="submit" class="form-control btn btn-primary" name="submit" value="Register" />
-            </div>
-        </form>
-    </div>
-    </body>
-    </html>
+<style>
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0c1445, #2b0b3f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-shell {
+    width: 100%;
+    max-width: 920px;
+    background: #0b1d4a;
+    border-radius: 14px;
+    padding: 60px;
+    color: #ffffff;
+    box-shadow: 0 40px 100px rgba(0,0,0,.55);
+}
+
+h1 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 15px;
+    opacity: .85;
+    margin-bottom: 45px;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+label span {
+    color: #ff6b6b;
+}
+
+input {
+    width: 100%;
+    padding: 15px 18px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.section {
+    margin-top: 40px;
+    border-top: 1px solid rgba(255,255,255,.25);
+    padding-top: 22px;
+    font-size: 18px;
+}
+
+.submit {
+    margin-top: 45px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg,#6c63ff,#b845ff);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.submit:hover {
+    opacity: .9;
+}
+
+@media(max-width:768px){
+    .form-shell { padding:35px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="form-shell">
+
+    <h1>Event Evaluation</h1>
+    <p class="subtitle">Thanks for a great event! Tell us what you feel.</p>
+
+    <!-- FORM FIELD NAMES UNCHANGED -->
+    <form method="POST">
+
+        <label>Your Name <span>*</span></label>
+        <input type="text" name="username" placeholder="Enter your full name" required>
+
+        <label>Email Address <span>*</span></label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+
+        <label>Password <span>*</span></label>
+        <input type="password" name="password" placeholder="Create a password" required>
+
+        <div class="section">Please rate the following</div>
+        <p style="opacity:.7;font-size:14px">
+            (Rating fields can be added visually later without affecting PHP)
+        </p>
+
+        <button type="submit" class="submit">Submit Evaluation</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
+
 <?php } ?>
 
