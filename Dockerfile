@@ -1,17 +1,18 @@
 FROM registry.access.redhat.com/ubi9/php-83
 
-# Switch to root for package updates
+# Switch to root to install updates
 USER root
 
-# 🔐 Apply security updates (fixes brotli CVEs)
-RUN microdnf update -y \
-    && microdnf upgrade -y brotli libbrotli brotli-devel \
-    && microdnf clean all
+# 🔐 Apply security updates (fix brotli CVEs)
+RUN dnf -y update \
+    && dnf -y upgrade brotli libbrotli brotli-devel \
+    && dnf clean all \
+    && rm -rf /var/cache/dnf
 
 # Copy application source
 COPY . /opt/app-root/src
 
-# Restore OpenShift non-root user
+# Return to OpenShift non-root user
 USER 1001
 
 EXPOSE 8080
